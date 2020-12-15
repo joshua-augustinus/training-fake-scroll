@@ -7,7 +7,8 @@ interface Props {
     scrollY: any,
     index: number,
     onPress: () => void,
-    stateTransition: any
+    stateTransition: any,
+    selectedIndex: number
 }
 
 export const FEATURE_BUTTON_HEIGHT = 150;
@@ -23,13 +24,13 @@ const FeatureButton = (props: Props) => {
     }, {
         translateX: props.stateTransition.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, props.index === 1 ? 0 : -fullWidth]
+            outputRange: [0, props.index === props.selectedIndex ? 0 : -fullWidth]
         })
     },
     {
         scale: props.stateTransition.interpolate({
             inputRange: [0, 1],
-            outputRange: [0.90, props.index === 1 ? 1 : 0.95]
+            outputRange: [0.90, props.index === props.selectedIndex ? 1 : 0.95]
         })
     },
 
@@ -37,7 +38,13 @@ const FeatureButton = (props: Props) => {
 
     const borderRadius = props.stateTransition.interpolate({
         inputRange: [0, 1],
-        outputRange: [10, props.index === 1 ? 0 : 10]
+        outputRange: [10, props.index === props.selectedIndex ? 0 : 10]
+    })
+
+
+    const height = props.stateTransition.interpolate({
+        inputRange: [0, 1],
+        outputRange: [150, props.index === props.selectedIndex ? 300 : 150]
     })
 
     return (
@@ -47,7 +54,7 @@ const FeatureButton = (props: Props) => {
                 ...styles.container, transform: transform
             }}>
                 <TouchableOpacity onPress={props.onPress} >
-                    <Animated.Image style={{ ...styles.image, width: fullWidth, borderRadius: borderRadius }} source={require('../assets/sample.jpg')} />
+                    <Animated.Image style={{ ...styles.image, width: fullWidth, height: height, borderRadius: borderRadius }} source={require('../assets/sample.jpg')} />
 
                 </TouchableOpacity>
             </Animated.View>

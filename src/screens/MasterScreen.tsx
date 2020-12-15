@@ -12,24 +12,21 @@ type Props = {
     navigation: NavigationDrawerProp<{ userId: string, routeName: string }>;
 }
 
+let data = [];
+for (let i = 0; i < 15; i++) {
+    data.push({ index: i });
+}
+
 const MasterScreen = (props: Props) => {
     const stateTransition = useRef(new Animated.Value(0)).current;
     const [y, setY] = useState(new Animated.Value(0));
     const scrollY = useRef(new Animated.Value(0));
     const [disablePanResponder, setDisablePanResponder] = useState(true);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
 
     useEffect(() => {
 
     }, []);
-
-    const onMenuPress = () => {
-        Animated.timing(y, {
-            toValue: 0,
-            duration: 500,
-            easing: Easing.ease
-
-        }).start();
-    }
 
     const onReset = () => {
 
@@ -53,7 +50,7 @@ const MasterScreen = (props: Props) => {
     }
 
     const onPress = (index: number) => {
-
+        setSelectedIndex(index);
         const animation1 = Animated.timing(scrollY.current, {
             toValue: 0 - index * FEATURE_BUTTON_HEIGHT,
             duration: 500,
@@ -86,9 +83,10 @@ const MasterScreen = (props: Props) => {
                 </TouchableOpacity>
             </View>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                {data.map((item) => {
+                    return <FeatureButton key={item.index} scrollY={scrollY.current} selectedIndex={selectedIndex} index={item.index} onPress={() => onPress(item.index)} stateTransition={stateTransition} />
 
-                <FeatureButton scrollY={scrollY.current} index={0} onPress={() => onPress(0)} stateTransition={stateTransition} />
-                <FeatureButton scrollY={scrollY.current} index={1} onPress={() => onPress(1)} stateTransition={stateTransition} />
+                })}
 
 
                 {!disablePanResponder && <Animated.ScrollView style={StyleSheet.absoluteFill} disableScrollViewPanResponder={disablePanResponder}
