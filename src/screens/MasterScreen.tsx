@@ -52,7 +52,7 @@ const MasterScreen = (props: Props) => {
     const onPress = (index: number) => {
         setSelectedIndex(index);
         const animation1 = Animated.timing(scrollY.current, {
-            toValue: 0 - index * FEATURE_BUTTON_HEIGHT,
+            toValue: 0 + index * FEATURE_BUTTON_HEIGHT,
             duration: 500,
             easing: Easing.ease
 

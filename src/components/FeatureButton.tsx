@@ -17,7 +17,7 @@ const ARTICLE_HEADER_HEIGHT = 300;
 const FeatureButton = (props: Props) => {
     const fullWidth = useWindowDimensions().width;
 
-    let y = Animated.add(props.index * FEATURE_BUTTON_HEIGHT, Animated.multiply(1, props.scrollY));
+    let y = Animated.add(props.index * FEATURE_BUTTON_HEIGHT, Animated.multiply(-1, props.scrollY));
 
     /**
      * Returns value depending on if selected or not
@@ -40,7 +40,7 @@ const FeatureButton = (props: Props) => {
     {
         scale: props.stateTransition.interpolate({
             inputRange: [0, 1],
-            outputRange: [0.90, props.index === props.selectedIndex ? 1 : 0.95]
+            outputRange: [0.90, getValue(1, 0.90)]
         })
     },
 
