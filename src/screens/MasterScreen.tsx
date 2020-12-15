@@ -9,7 +9,7 @@ import Animated, { Easing } from 'react-native-reanimated';
  * https://reactnavigation.org/docs/4.x/typescript
  */
 type Props = {
-    navigation: NavigationDrawerProp<{ userId: string, routeName: string }>;
+    navigation: any;
 }
 
 let data = [];
@@ -53,7 +53,7 @@ const MasterScreen = (props: Props) => {
         setSelectedIndex(index);
         const animation1 = Animated.timing(scrollY.current, {
             toValue: 0 + index * FEATURE_BUTTON_HEIGHT,
-            duration: 500,
+            duration: 400,
             easing: Easing.ease
 
         }).start();
@@ -61,8 +61,11 @@ const MasterScreen = (props: Props) => {
         const animation2 = Animated.timing(stateTransition, {
             easing: Easing.ease,
             toValue: 1,
-            duration: 500
-        }).start();
+            duration: 400
+        }).start(() => {
+            props.navigation.push("Activity");
+            onReset();
+        });
 
         setDisablePanResponder(true);
 

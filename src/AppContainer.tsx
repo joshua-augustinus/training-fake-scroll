@@ -6,12 +6,21 @@ import { MasterScreen } from './screens/MasterScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 
 
+const stackConfig = {
+    defaultNavigationOptions:
+    {
+        animationEnabled: false
+    }
+}
 
 const InnerStack = createStackNavigator({
     Stack1: {
-        screen: MasterScreen
-    }
-})
+        screen: MasterScreen,
+    },
+    Activity: {
+        screen: ActivityScreen
+    },
+}, stackConfig);
 
 const RootStack = createDrawerNavigator({
     Home: {
@@ -20,9 +29,7 @@ const RootStack = createDrawerNavigator({
     SecondScreen: {
         screen: InnerStack
     },
-    Activity: {
-        screen: ActivityScreen
-    }
+
 }, {
     contentComponent: SideMenu,
     backBehavior: "initialRoute"

@@ -66,10 +66,10 @@ const FeatureButton = (props: Props) => {
         <View style={StyleSheet.absoluteFill}>
 
             <Animated.View style={{
-                ...styles.container, transform: transform, opacity: opacity
+                ...styles.container, transform: transform, opacity: opacity, height: height
             }}>
                 <TouchableOpacity onPress={props.onPress} >
-                    <Animated.Image style={{ ...styles.image, width: fullWidth, height: height, borderRadius: borderRadius }} source={require('../assets/sample.jpg')} />
+                    <Animated.Image style={{ ...styles.image, width: fullWidth, height: '100%', borderRadius: borderRadius }} source={require('../assets/sample.jpg')} />
 
                 </TouchableOpacity>
             </Animated.View>
@@ -81,7 +81,6 @@ export { FeatureButton }
 
 const styles = StyleSheet.create({
     container: {
-        height: FEATURE_BUTTON_HEIGHT,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
