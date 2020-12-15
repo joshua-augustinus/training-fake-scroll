@@ -12,12 +12,22 @@ interface Props {
 }
 
 export const FEATURE_BUTTON_HEIGHT = 150;
-const IMAGE_HEIGHT = FEATURE_BUTTON_HEIGHT;
+const ARTICLE_HEADER_HEIGHT = 300;
 
 const FeatureButton = (props: Props) => {
     const fullWidth = useWindowDimensions().width;
 
     let y = Animated.add(props.index * FEATURE_BUTTON_HEIGHT, Animated.multiply(1, props.scrollY));
+
+    /**
+     * Returns value depending on if selected or not
+     * @param whenSelected 
+     * @param otherwise 
+     */
+    const getValue = (whenSelected: number, otherwise: number) => {
+        return props.index === props.selectedIndex ? whenSelected : otherwise;
+    }
+
     const transform = [{
         translateY: y,
 
@@ -44,14 +54,19 @@ const FeatureButton = (props: Props) => {
 
     const height = props.stateTransition.interpolate({
         inputRange: [0, 1],
-        outputRange: [150, props.index === props.selectedIndex ? 300 : 150]
+        outputRange: [FEATURE_BUTTON_HEIGHT, getValue(ARTICLE_HEADER_HEIGHT, FEATURE_BUTTON_HEIGHT)]
+    })
+
+    const opacity = props.stateTransition.interpolate({
+        inputRange: [0, 0.4, 1],
+        outputRange: [1, getValue(1, 0), getValue(1, 0)]
     })
 
     return (
         <View style={StyleSheet.absoluteFill}>
 
             <Animated.View style={{
-                ...styles.container, transform: transform
+                ...styles.container, transform: transform, opacity: opacity
             }}>
                 <TouchableOpacity onPress={props.onPress} >
                     <Animated.Image style={{ ...styles.image, width: fullWidth, height: height, borderRadius: borderRadius }} source={require('../assets/sample.jpg')} />
@@ -75,6 +90,5 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
 
-        height: IMAGE_HEIGHT,
     }
 })
