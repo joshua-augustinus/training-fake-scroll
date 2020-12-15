@@ -10,8 +10,8 @@ interface Props {
     stateTransition: any
 }
 
-export const FEATURE_BUTTON_HEIGHT = 110;
-const IMAGE_HEIGHT = FEATURE_BUTTON_HEIGHT - 10;
+export const FEATURE_BUTTON_HEIGHT = 150;
+const IMAGE_HEIGHT = FEATURE_BUTTON_HEIGHT;
 
 const FeatureButton = (props: Props) => {
     const fullWidth = useWindowDimensions().width;
@@ -26,7 +26,12 @@ const FeatureButton = (props: Props) => {
             outputRange: [0, props.index === 1 ? 0 : -fullWidth]
         })
     },
-    { scale: 0.95 },
+    {
+        scale: props.stateTransition.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0.90, props.index === 1 ? 1 : 0.95]
+        })
+    },
 
     ];
 
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     image: {
-
+        width: '100%',
 
         height: IMAGE_HEIGHT,
     }
