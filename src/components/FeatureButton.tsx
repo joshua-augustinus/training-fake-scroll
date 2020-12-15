@@ -14,12 +14,15 @@ const FeatureButton = (props: Props) => {
     }];
 
     return (
-        <Animated.View style={{ ...styles.container, transform: transform }}>
-            <TouchableOpacity   >
-                <Image style={{ ...styles.image, width: width }} source={require('../assets/sample.jpg')} resizeMode='cover' />
+        <View style={StyleSheet.absoluteFill}>
 
-            </TouchableOpacity>
-        </Animated.View>)
+            <Animated.View style={{ ...styles.container, transform: transform }}>
+                <TouchableOpacity   >
+                    <Image style={{ ...styles.image, width: width }} source={require('../assets/sample.jpg')} resizeMode='cover' />
+
+                </TouchableOpacity>
+            </Animated.View>
+        </View>)
 
 }
 

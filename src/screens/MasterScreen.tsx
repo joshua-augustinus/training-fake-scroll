@@ -53,9 +53,7 @@ const MasterScreen = (props: Props) => {
             </View>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-                <View style={StyleSheet.absoluteFill}>
-                    <FeatureButton scrollY={y} />
-                </View>
+                <FeatureButton scrollY={y} />
 
                 <Animated.ScrollView style={StyleSheet.absoluteFill}
                     contentContainerStyle={{ height: 5000 }}
